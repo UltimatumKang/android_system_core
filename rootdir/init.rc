@@ -8,6 +8,7 @@ import /init.usb.rc
 import /init.${ro.hardware}.rc
 import /init.trace.rc
 import /init.carrier.rc
+import /init.lpm.rc
 
 on early-init
     # Set init and its forked children's oom_adj.
@@ -257,6 +258,9 @@ on post-fs-data
     import /init.ukg.rc
 
 on boot
+    # Run sysinit
+    start sysinit
+
 # basic network init
     ifup lo
     hostname localhost
@@ -532,4 +536,8 @@ service mdnsd /system/bin/mdnsd
     group inet net_raw
     socket mdnsd stream 0660 mdnsr inet
     disabled
+    oneshot
+
+service sysinit /system/bin/sysinit
+    user root
     oneshot
