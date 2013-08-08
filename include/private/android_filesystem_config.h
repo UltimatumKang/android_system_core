@@ -73,6 +73,8 @@
 #define AID_AUDIT         1031  /* audit daemon */
 
 #define AID_THEMEMAN      1300  /* theme manager */
+#define AID_LOOP_RADIO    1030  /* loop radio devices */
+#define AID_MEDIA_DRM     1031  /* MediaDrm plugins */
 
 #define AID_SHELL         2000  /* adb and debug shell user */
 #define AID_CACHE         2001  /* cache access */
@@ -188,6 +190,8 @@ static const struct android_id_info android_ids[] = {
     { "clat",      AID_CLAT, },
     { "theme_man", AID_THEMEMAN },
     { "audit",      AID_AUDIT, },
+    { "loop_radio", AID_LOOP_RADIO, },
+    { "mediadrm",  AID_MEDIA_DRM, },
 };
 
 #define android_id_count \
@@ -220,12 +224,13 @@ static const struct fs_path_config android_dirs[] = {
     { 00775, AID_MEDIA_RW, AID_MEDIA_RW, 0, "data/media" },
     { 00775, AID_MEDIA_RW, AID_MEDIA_RW, 0, "data/media/Music" },
     { 00771, AID_SYSTEM, AID_SYSTEM, 0, "data" },
-    { 00750, AID_ROOT,   AID_SHELL,  0, "sbin" },
+    { 00755, AID_ROOT,   AID_SHELL,  0, "sbin" },
     { 00755, AID_ROOT,   AID_ROOT,   0, "system/addon.d" },
     { 00755, AID_ROOT,   AID_SHELL,  0, "system/bin" },
     { 00755, AID_ROOT,   AID_SHELL,  0, "system/vendor" },
     { 00755, AID_ROOT,   AID_SHELL,  0, "system/xbin" },
     { 00755, AID_ROOT,   AID_ROOT,   0, "system/etc/ppp" },
+    { 00755, AID_ROOT,   AID_SHELL,  0, "vendor" },
     { 00777, AID_ROOT,   AID_ROOT,   0, "sdcard" },
     { 00755, AID_ROOT,   AID_ROOT,   0, 0 },
 };
@@ -273,6 +278,7 @@ static const struct fs_path_config android_files[] = {
     { 00755, AID_ROOT,      AID_ROOT,      0, "system/lib/valgrind/*" },
     { 00755, AID_ROOT,      AID_SHELL,     0, "system/xbin/*" },
     { 00755, AID_ROOT,      AID_SHELL,     0, "system/vendor/bin/*" },
+    { 00755, AID_ROOT,      AID_SHELL,     0, "vendor/bin/*" },
     { 00750, AID_ROOT,      AID_SHELL,     0, "sbin/*" },
     { 00755, AID_ROOT,      AID_ROOT,      0, "bin/*" },
     { 00750, AID_ROOT,      AID_SHELL,     0, "init*" },

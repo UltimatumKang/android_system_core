@@ -47,6 +47,9 @@
 /* Copy 'srclen' string bytes from 'src' into buffer 'dst' of size 'dstlen'
  * This function always zero-terminate the destination buffer unless
  * 'dstlen' is 0, even in case of overflow.
+ * Returns a pointer into the src string, leaving off where the copy
+ * has stopped. The copy will stop when dstlen, srclen or a null
+ * character on src has been reached.
  */
 static const char*
 string_copy(char* dst, size_t dstlen, const char* src, size_t srclen)
@@ -440,7 +443,7 @@ get_package_info(const char* pkgName, PackageInfo *info)
 
     /* expect the following format on each line of the control file:
      *
-     *  <pkgName> <uid> <debugFlag> <dataDir>
+     *  <pkgName> <uid> <debugFlag> <dataDir> <seinfo>
      *
      * where:
      *  <pkgName>    is the package's name
@@ -509,7 +512,7 @@ get_package_info(const char* pkgName, PackageInfo *info)
         if (parse_spaces(&p, end) < 0)
             goto BAD_FORMAT;
 
-        /* grab the seinfo string */
+        /* fifth field is the seinfo string */
         q = skip_non_spaces(p, end);
         if (q == p)
             goto BAD_FORMAT;
